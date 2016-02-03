@@ -1,125 +1,76 @@
 // add scripts
 
 var clickedArray = []; 
-var count = 0;
+var count = -1;
 
 
 
-$(document).on('ready', function() {
-  console.log('sanity check!');
-
- $('#batterLup').hide();
- $('#batterR').hide();
- $('#results').hide();
-
-
-
+$(document).on('ready', function() { 
+	console.log('sanity check!');
+	playGame();
+	$('#batterLup').hide();
+	$('#batterR').hide();
+	$('#results').hide();
 	
-//call update UI function to read the data for next pitch
+	for (var i = 0; i <= 25 ; i++){
+	    	$('#' + i).on('click',function(){
+	    	$this = $(this);
+	    	if ($this.hasClass('selected')) {
+				clickedArray.push(5);
+				$('#playerResults').append('<tr><td>'+(pitchArr[count].type)+'</td><td>'+(pitchArr[count].desc)+'</td><td>'+'<span class="label label-primary"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span><bold>  + 5</bold></span>'+'</td></tr>');
+				
+	    	}
+	    	else if ($this.hasClass('bonusselected')) { 
+				clickedArray.push(10);
+				$('#playerResults').append('<tr><td>'+(pitchArr[count].type)+'</td><td>'+(pitchArr[count].desc)+'</td><td>'+'<span class="label label-success"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span><bold>  + 10</bold></span>'+'</td></tr>');
+			
+	    	}
+	    	else { 
+				clickedArray.push(0);
+				$('#playerResults').append('<tr><td>'+(pitchArr[count].type)+'</td><td>'+(pitchArr[count].desc)+'</td><td>'+'<span class="label label-danger"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span><bold>  + 0</bold></span>'+'</td></tr>');
+			
+	    	}
+	    	
+			playGame();
 
-	$('.box').on('click', function() {
-		playGame();
-	});
-		// function() {
-	    
-// 	    //counts number of pitches by the buttons clicked
-// 	    count ++
-
-// 		if (count >= 5){
-// 	    	$('#batterRup').hide();
-// 			$('#batterR').show();
-// 			$('#batterLup').show();
-// 			$('#batterL').hide();
-// 	    }
-// 	    if (count >= 10){
-// 	    	$('#batterRup').show();
-// 			$('#batterR').hide();
-// 			$('#batterLup').hide();
-// 			$('#batterL').show();
-// 	    }
-
-// 	    if (count >= 15){
-// 	    	$('#results').show();
-// 	    	$('#bbox').hide();
-// 	    	$('#instructions').hide();
-// 	    }
-// 	    if (pitchArr[count]) {
-// 		    $('#type').html(pitchArr[count].type);
-// 			$('#description').html(pitchArr[count].desc);
-// 			var bonus = (pitchArr[count].bonus)
-// 			var expected1 = (pitchArr[count].loc)
-// 			var expected2 = (pitchArr[count].loc2)
-// 			var oldHighlight = $('.selected')[0];
-// 			var oldHighlight2 = $('.bonusselected')[0];
-// 			var oldHighlight3 = $('.selected2')[0];
-// 			$(oldHighlight3).removeClass('selected2');
-// 			$(oldHighlight).removeClass('selected');
-// 			$(oldHighlight2).removeClass('bonusselected');
-// 			$('#' + bonus).addClass('bonusselected');
-// 			$('#' + expected1).addClass('selected');
-// 			$('#' + expected2).addClass('selected2');
-// 		}
- 
-
-//  var playerRunningScore = 0;
-
-// 	    $('#' + expected1).on('click',function(){
-// 	    	var buttonClicked1 = 2; 
-// 			clickedArray.push(buttonClicked1);
-	    
-// 	    })
-// 	     $('#' + expected2).on('click',function(){
-// 	    	var buttonClicked2 = 2; 
-// 			clickedArray.push(buttonClicked2);
-	    
-// 	    })
-// 	      $('#' + bonus).on('click',function(){
-// 	    	var buttonClicked3 = 10; 
-// 			clickedArray.push(buttonClicked3);
-
-// 	    })
-	      
-// 	      for (var i = 0; i < clickedArray.length; i++){
-// 	    	playerRunningScore += parseInt(clickedArray[i]);
-// 	    }
-// 	      console.log(clickedArray)
-
-
-
-// 	    // get the value of the button that was clicked
-// 		//  var buttonClicked = this.id; 
-
-
-// 	 //   // store it as the last element in the array
-// 	 // var playerRunningScore = 0;
-// 	 //    clickedArray.push(buttonClicked);
-// 	 //    console.log(clickedArray)
-// 	 //     for (var i = 0; i < clickedArray.length; i++){
-// 	 //     	playerRunningScore += parseInt(clickedArray[i]);
-// 	 //    }
-// 	 //   	 console.log(buttonClicked);	
-// 	 //     console.log(playerRunningScore);
-
-
-// 	    $('#playerScore').html(playerRunningScore);
-// 	    $('#playerFinal').html(playerRunningScore);
-// 	   //call update UI function 
-	    
-// console.log(count);
-    	
-// 	});
-
-
+			
+	    })
+	 }
 });
 
+$("#searchInput").keyup(function () {
+    //split the current value of searchInput
+    var data = this.value.split(" ");
+    //create a jquery object of the rows
+    var jo = $("#playerResults").find("tr");
+    if (this.value == "") {
+        jo.show();
+        return;
+    }
+    //hide all the rows
+    jo.hide();
 
-// new function called update UI pitch type, location 
-// based on the length of clicked array and the index of the array.
-//  
-//  
-
-
-  
+    //Recusively filter the jquery object to get results.
+    jo.filter(function (i, v) {
+        var $t = $(this);
+        for (var d = 0; d < data.length; ++d) {
+            if ($t.is(":contains('" + data[d] + "')")) {
+                return true;
+            }
+        }
+        return false;
+    })
+    //show the rows that match.
+    .show();
+}).focus(function () {
+    this.value = "";
+    $(this).css({
+        "color": "black"
+    });
+    $(this).unbind('focus');
+}).css({
+    "color": "#C0C0C0"
+});
 
 var pitchArr = [
 	
@@ -137,110 +88,27 @@ var pitchArr = [
 	{loc: 17, bonus: 18, loc2: 19, type:'Change Up', desc: 'Low strike'},
 	{loc: 20, bonus: 15, loc2: 10, type:'Fastball', desc: 'Inside and off the plate'},
 	{loc: 22, bonus: 23, loc2: 24, type:'Breaking Ball', desc: 'Chase middle down'},
+	{loc: 0, bonus: 17, loc2: 0, type:'Change Up', desc: 'Low and away'},
+	{loc: 17, bonus: 12, loc2: 7, type:'Fastball', desc: 'Outside corner'},
+	{loc: 17, bonus: 18, loc2: 19, type:'Change Up', desc: 'Low strike'},
+	{loc: 20, bonus: 15, loc2: 10, type:'Fastball', desc: 'Inside and off the plate'},
+	{loc: 22, bonus: 23, loc2: 24, type:'Breaking Ball', desc: 'Chase middle down'},
 	{loc: 0, bonus: 17, loc2: 0, type:'Change Up', desc: 'Low and away'}
 ]
-
-
-
-// pitchArr.forEach(function(pitch){
-// 	console.log(pitch);
-
-// })
-
-
-
-// button id = setLoc;
-// function setSpot() {
-// 	var id = setLoc;
-// 	$(id).html(10);
-// 	$(id).setclass('.selected');
-// }
-
-
-// // Function needed to set the location and identify the appropriate button
-// 
-// button id = spot#
-// function (#) {
-// 	var id = 'spot' + #;
-// 	
-// 	// this selects the value based on the id # of that button and the style
-// 	
-// 	$(id).html(10);
-// 	$(id).setclass('.selected');
-// }
-
-// // Creating a JSON object of pitch sequences. this will feed the 
-// // above function to set the selected pitch and the location.
-// 
-// pitchArrRighty = [
-// 	
-// 	{loc: 12, type:'Fastball'},
-// 	{loc: 18, type:'Change Up'},
-// 	{loc: 20, type:'Fastball'}
-// 	{loc: 23, type:'Breaking Ball'}
-// 	{loc: 17, type:'Change Up'}
-// 	
-// ]
-// pitchArrLefty= [
-// 
-// 	{loc: 17, type:'Change Up'},
-// 	{loc: 15, type:'Fastball'},
-// 	{loc: 10, type:'Breaking Ball'}
-// 	{loc: 3, type:'Fastball'}
-// 	{loc: 25, type:'Change Up'}
-// 	
-// 	]
-
-// // this will loop through the JSON object to select the pitch and apply it to
-// // the DOM location and type
-// 
-// pitchArr.foreach(function(pitch){
-// 	setloc(pitch.loc);
-// 	$(#location).html(pitch.type);
-// })
 
 $(document).ready(function(){
 	$('#mainSection').hide();
 	$('#starting').click(function() {
 		$('#loginStart').hide();
 		$('#mainSection').show();
-		playGame();
+		
 	});
-	// function(){
-	// 	
-	// 	$('#type').html(pitchArr[count].type);
-	// 	$('#description').html(pitchArr[count].desc);
-	// 	var bonus = (pitchArr[count].bonus)
-	// 	var expected1 = (pitchArr[count].loc)
-	// 	var expected2 = (pitchArr[count].loc2)
-	// 	var oldHighlight = $('.selected')[0];
-	// 	var oldHighlight2 = $('.bonusselected')[0];
-	// 	var oldHighlight3 = $('.selected2')[0];
-	// 	$(oldHighlight3).removeClass('selected2');
-	// 	$(oldHighlight).removeClass('selected');
-	// 	$(oldHighlight2).removeClass('bonusselected');
-	// 	$('#' + bonus).addClass('bonusselected');
-	// 	$('#' + expected1).addClass('selected');
-	// 	$('#' + expected2).addClass('selected2');
-
-	// })
-	// $('#player').click(function(){
-	// 	$('#loginStart').hide();
-	// 	$('#coach').hide();
-	// 	$('#coachFields').hide();
-	// 	$('#playerFields').show();
-	// })
-	// $('#coach').click(function(){
-	// 	$('#loginStart').hide();
-	// 	$('#coachFields').show();
-	// 	$('#playerFields').hide();
-
-	// })
 
 });
 
 function playGame() {
 	//counts number of pitches by the buttons clicked
+	    
 	    count ++
 		if (count >= 5){
 	    	$('#batterRup').hide();
@@ -254,8 +122,14 @@ function playGame() {
 			$('#batterLup').hide();
 			$('#batterL').show();
 	    }
-
 	    if (count >= 15){
+	    	$('#batterRup').hide();
+			$('#batterR').show();
+			$('#batterLup').show();
+			$('#batterL').hide();
+	    }
+
+	    if (count >= 20){
 	    	$('#results').show();
 	    	$('#bbox').hide();
 	    	$('#instructions').hide();
@@ -263,65 +137,40 @@ function playGame() {
 	    if (pitchArr[count]) {
 		    $('#type').html(pitchArr[count].type);
 			$('#description').html(pitchArr[count].desc);
+			// $('#playerResults').append('<td>'+(pitchArr[count].type)+'</td><td>'+(pitchArr[count].desc)+'</td><td>'+'</td>');
 			var bonus = (pitchArr[count].bonus)
 			var expected1 = (pitchArr[count].loc)
 			var expected2 = (pitchArr[count].loc2)
 			var oldHighlight = $('.selected')[0];
 			var oldHighlight2 = $('.bonusselected')[0];
-			var oldHighlight3 = $('.selected2')[0];
-			$(oldHighlight3).removeClass('selected2');
+			var oldHighlight3 = $('.selected')[1];
+			$(oldHighlight3).removeClass('selected');
 			$(oldHighlight).removeClass('selected');
 			$(oldHighlight2).removeClass('bonusselected');
 			$('#' + bonus).addClass('bonusselected');
 			$('#' + expected1).addClass('selected');
-			$('#' + expected2).addClass('selected2');
+			$('#' + expected2).addClass('selected');
 		}
  
 
 		 var playerRunningScore = 0;
-
-	    $('#' + expected1).on('click',function(){
-	    	var buttonClicked1 = 2; 
-			clickedArray.push(buttonClicked1);
-	    
-	    })
-	     $('#' + expected2).on('click',function(){
-	    	var buttonClicked2 = 2; 
-			clickedArray.push(buttonClicked2);
-	    
-	    })
-	      $('#' + bonus).on('click',function(){
-	    	var buttonClicked3 = 10; 
-			clickedArray.push(buttonClicked3);
-
-	    })
 	      
 	      for (var i = 0; i < clickedArray.length; i++){
 	    	playerRunningScore += parseInt(clickedArray[i]);
 	    }
-	      console.log(clickedArray)
-
-
-
-	    // get the value of the button that was clicked
-		//  var buttonClicked = this.id; 
-
-
-	 //   // store it as the last element in the array
-	 // var playerRunningScore = 0;
-	 //    clickedArray.push(buttonClicked);
-	 //    console.log(clickedArray)
-	 //     for (var i = 0; i < clickedArray.length; i++){
-	 //     	playerRunningScore += parseInt(clickedArray[i]);
-	 //    }
-	 //   	 console.log(buttonClicked);	
-	 //     console.log(playerRunningScore);
-
+	      
 
 	    $('#playerScore').html(playerRunningScore);
 	    $('#playerFinal').html(playerRunningScore);
+	   	var last_element = clickedArray[clickedArray.length - 1];
 	   //call update UI function 
 	    
+	    console.log(clickedArray)
+	    console.log(playerRunningScore)
 		console.log(count);
+		console.log(last_element)
+		// console.log(pitchArr[count].desc)
+		// console.log(pitchArr[count].type)
+		console.log(pitchArr[i])
     	
 }

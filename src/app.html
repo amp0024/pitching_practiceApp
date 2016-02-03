@@ -127,6 +127,7 @@
 <div class="row" id="instructions">
 
   <div class="row grid-divider">
+
       <div class="col-sm-4">
         <div class="col-padding">
           <h4>Pitch Type: <span class="label label-primary" id="type"></span></h4>
@@ -147,9 +148,8 @@
           
         </div>
       </div>
-  </div>
 </div>
-<hr>
+</div>
 <br>
 
     <div class="container" id="bbox">
@@ -304,37 +304,37 @@
 
 
 <div class="" id="results">
-<h1>Game over</h1>
+
+
+
+
 
 <div class="panel panel-primary">
   <!-- Default panel contents -->
-  <div class="panel-heading"><h4>Final Score: <span class="label label-success" id='playerFinal'></span></h4></div>
-  <div class="panel-body">
-     
+  <div class="panel-heading">
+  <h3>Final Score: <span class="label label-success" id='playerFinal'>  </span></h3>
   </div>
-    <table class="table table-striped">
-      <tr>
-        <th>Pitch #</th>
-        <th>Type</th>
-        <th>Hit</th>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Change Up</td>
-        <td><span class="label label-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Fastball</td>
-        <td><span class="label label-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Breaking Ball</td>
-        <td><span class="label label-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
-      </tr>
-    </table>
+      
+  <div class="panel-body">
 
+  <div class="input-group">
+  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>Filter By: </span>
+  <input id="searchInput" type="text" class="form-control" placeholder="Pitch Type" aria-describedby="basic-addon1">
+
+</div>
+
+  
+
+  </div>
+
+<table class="table table-striped" id="playerResults">
+  <tr>
+    <th>Pitch Type</th>
+    <th>Location</th> 
+    <th>Result</th>
+  </tr>
+  
+</table>
 
 </div>
 </div>
