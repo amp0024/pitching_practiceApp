@@ -35,7 +35,7 @@ $(document).on('ready', function() {
 				$('#playerResults').append('<tr><td>'+(pitchArr[count].type)+'</td><td>'+(pitchArr[count].desc)+'</td><td>'+'<span class="label label-danger"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span><bold>  + 0</bold></span>'+'</td></tr>');
 			
 	    	}
-	    	
+	    	$(this).blur();
 			playGame();
 
 			
