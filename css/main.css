@@ -1,0 +1,83 @@
+body {
+    font-family: 'Open Sans' , sans-serif;
+    padding-top: 30px;
+    
+    background: url(../img/dust.png);
+    background-repeat: repeat;
+}
+
+#instructions {
+	font-family: 'Open Sans' , sans-serif;
+    font-weight: 500;
+    color: grey;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.box {
+	height: 50px;
+	
+	opacity: .9;
+	background-color: #1c1c1c;
+
+}
+
+.ball {
+	background-color: #9e9e9e;
+	opacity: .9
+}
+
+.selected {
+	background-color: #397ee6;
+}
+.selected2 {
+	background-color: #397ee6;
+}
+.bonusselected {
+	background-color: #2256a3;
+}
+
+
+/* add custom styles */
+
+/* Tablet and bigger */
+@media ( min-width: 200px ) {
+    .grid-divider {
+        position: relative;
+        padding: 10px;
+    }
+    .grid-divider>[class*='col-'] {
+        position: static;
+    }
+    .grid-divider>[class*='col-']:nth-child(n+2):before {
+        content: "";
+        border-left: 1px solid #8c8c8c;
+        opacity: .7;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+    .col-padding {
+        padding: 0 15px;
+    }
+}
+
+#instructions {
+	/*background-color: #171717;*/
+	border-radius: 10px;
+	border-style: solid;
+	border-size: 2px;
+	padding: 5px 5px 5px 5px;
+	box-shadow: 1px 5px 5px #8c8c8c;
+}
+
+#batterR{
+	opacity: .2;
+}
+
+#batterL{
+	opacity: .2;
+}
+
+
+
