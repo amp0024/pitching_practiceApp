@@ -85,23 +85,38 @@ function playGame() {
 	//counts number of pitches by the buttons clicked
 	    
 	    count ++
+	    
+	    if (count < 5){
+	    	$('#batterRup').show();
+			$('#batterR').hide();
+			$('#batterLup').hide();
+			$('#batterL').show();
+			$('#sidebarLeft').addClass('nodisplay');
+			$('#sidebarRight').removeClass('nodisplay');
+	    }
 		if (count >= 5){
 	    	$('#batterRup').hide();
 			$('#batterR').show();
 			$('#batterLup').show();
 			$('#batterL').hide();
+			$('#sidebarRight').addClass('nodisplay');
+			$('#sidebarLeft').removeClass('nodisplay');
 	    }
 	    if (count >= 10){
 	    	$('#batterRup').show();
 			$('#batterR').hide();
 			$('#batterLup').hide();
 			$('#batterL').show();
+			$('#sidebarLeft').addClass('nodisplay');
+			$('#sidebarRight').removeClass('nodisplay');
 	    }
 	    if (count >= 15){
 	    	$('#batterRup').hide();
 			$('#batterR').show();
 			$('#batterLup').show();
 			$('#batterL').hide();
+			$('#sidebarLeft').removeClass('nodisplay');
+			$('#sidebarRight').addClass('nodisplay');
 	    }
 
 	    if (count >= 20){

@@ -71,7 +71,7 @@ body {
 	box-shadow: 1px 5px 5px #8c8c8c;
 }
 
-#batterR{
+#batterR {
 	opacity: .2;
 }
 
@@ -79,5 +79,10 @@ body {
 	opacity: .2;
 }
 
+@media screen and (max-width: 768px) {
 
+.nodisplay {
+    display: none;
+}
 
+}
